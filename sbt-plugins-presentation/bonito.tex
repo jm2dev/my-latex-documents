@@ -1,0 +1,264 @@
+\documentclass[utf8,utf8x]{beamer}
+
+\usepackage{listings}
+
+\title{SBT plugins}
+\author{José Miguel Martínez Carrasco}
+\institute[Springer]{Springer}
+\date{\today}
+
+\setbeamercolor{postit}{fg=black,bg=white!80!black}
+%\setcolortheme{seagull}
+\usetheme{Pittsburgh}
+\logo{\includegraphics[height=0.5cm]{springer_horse.png}}
+
+% scala: http://tihlde.org/~eivindw/latex-listings-for-scala/
+% "define" Scala
+\lstdefinelanguage{scala}{
+  morekeywords={abstract,case,catch,class,def,%
+    do,else,extends,false,final,finally,%
+    for,if,implicit,import,match,mixin,%
+    new,null,object,override,package,%
+    private,protected,requires,return,sealed,%
+    super,this,throw,trait,true,try,%
+    type,val,var,while,with,yield},
+  otherkeywords={=>,<-,<\%,<:,>:,\#,@, <+=},
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[n]{/*}{*/},
+  morestring=[b]",
+  morestring=[b]',
+  morestring=[b]"""
+}
+
+\usepackage{color}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+ 
+% Default settings for code listings
+\lstset{frame=tb,
+  language=scala,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  frame=single,
+  breaklines=true,
+  breakatwhitespace=true
+  tabsize=3
+}
+
+\begin{document}
+\frame{\maketitle}
+
+\section{Introduction}
+\frame{\tableofcontents[currentsection]}
+
+\subsection{Motivation}
+\frame{
+  Simple Extensibility.
+
+  \begin{beamercolorbox}[shadow=true, rounded=true]{postit}	  
+    Plugins provide a means of injecting and augmenting settings and commands. Since plugins are just Scala code, you can package and share plugins between projects.  
+  \end{beamercolorbox}
+
+  Refactor your build chain.
+}
+
+\section{Create a plugin}
+\frame{\tableofcontents[currentsection]}
+
+\frame{
+  \begin{itemize}
+    \item{Create \emph{your project} folder}
+    \item{build.sbt}
+    \item{project/build.properties}
+    \item{project/plugins.sbt}
+    \item{Scala class extending Plugin class.}
+  \end{itemize}
+}
+
+\subsection{build.sbt}
+\begin{frame}[fragile]
+
+  \begin{lstlisting}[title={build.sbt}]
+    sbtPlugin := true
+
+    name := "sbt-xslt-plugin"
+
+    organization := "com.jm2dev"
+
+    version := "0.1.6"
+
+    scalaVersion := "2.9.1"
+
+    seq(scriptedSettings: _*)
+
+    libraryDependencies ++= Seq(
+      "org.scalatest" %% "scalatest" % "1.6.1" % "test",
+      "net.sf.saxon" % "Saxon-HE" % "9.4"
+    )    
+  \end{lstlisting}
+
+\end{frame}
+
+\subsection{build.properties}
+\begin{frame}[fragile]
+
+  \begin{lstlisting}[title={project/build.properties}]
+    sbt.version=0.11.2
+  \end{lstlisting}
+
+\end{frame}
+
+\subsection{plugins.sbt}
+\begin{frame}[fragile]
+  \begin{lstlisting}[title={project/plugins.sbt}]
+    libraryDependencies <+= (sbtVersion) { (version) =>
+      "org.scala-tools.sbt" %% "scripted-plugin" % version
+    }
+
+    resolvers ++= Seq (
+      "coda" at "http://repo.codahale.com"
+    )
+  \end{lstlisting}
+
+\end{frame}
+
+\subsection{MyPlugin.scala}
+\begin{frame}[fragile]
+  \begin{lstlisting}[title={src/main/scala/MyPlugin.scala}]
+    import sbt._
+    import Keys._
+
+    object MyPlugin extends Plugin
+    {
+      override lazy val settings = Seq(commands += myCommand)
+
+      lazy val myCommand = 
+        Command.command("hello") { (state: State) =>
+          println("Hi!")
+          state
+        }
+    }
+  \end{lstlisting}
+
+\end{frame}
+
+\section{Plugins I like}
+\frame{\tableofcontents[currentsection]}
+
+\subsection{idea}
+\frame{
+  \frametitle{idea}
+  
+  \begin{beamercolorbox}[shadow=true, rounded=true]{postit}
+    Generates Intellij Idea project configuration.
+  \end{beamercolorbox}
+}
+
+\begin{frame}[fragile]
+
+  \begin{lstlisting}[title={plugins.sbt}]
+    resolvers += "sbt-idea-repo" at "http://mpeltonen.github.com/maven/"
+
+    addSbtPlugin("com.github.mpeltonen" % "sbt-idea" % "1.0.0")
+  \end{lstlisting}
+
+  \begin{lstlisting}[title={usage}]
+    gen-idea
+    
+    gen-idea no-classifiers
+  \end{lstlisting}
+
+\end{frame}
+
+\subsection{assembly}
+\frame{
+  \frametitle{assembly}
+  
+  \begin{beamercolorbox}[shadow=true, rounded=true]{postit}
+    Generates a big jar.
+  \end{beamercolorbox}
+}
+
+\begin{frame}[fragile]
+  \begin{lstlisting}[title={plugins.sbt}]
+    addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.7.2")
+  \end{lstlisting}
+
+  \begin{lstlisting}[title={usage}]
+    assembly
+  \end{lstlisting}
+\end{frame}
+
+\subsection{web}
+\frame{
+  \frametitle{web}
+  
+  \begin{beamercolorbox}[shadow=true, rounded=true]{postit}
+    Develop web applications easily.
+  \end{beamercolorbox}
+}
+
+\begin{frame}[fragile]
+  \begin{lstlisting}[title={plugins.sbt}]
+    libraryDependencies <+= sbtVersion(v => "com.github.siasia" %% "xsbt-web-plugin" % (v+"-0.2.11"))
+  \end{lstlisting}
+
+  \begin{lstlisting}[title={build.sbt}]
+    seq(webSettings :_*)
+
+    libraryDependencies += "org.mortbay.jetty" % "jetty" %
+                                % "6.1.22" % "container"
+  \end{lstlisting}
+
+  \begin{lstlisting}[title={usage}]
+    ~;container:start; container:reload /    
+
+    container:stop
+  \end{lstlisting}
+\end{frame}
+
+\subsection{implicitly}
+\frame{
+  \frametitle{implicitly}
+  
+  \begin{beamercolorbox}[shadow=true, rounded=true]{postit}
+    codigo de implicitly
+  \end{beamercolorbox}
+}
+
+\section{Conclusions}
+\frame{
+  \begin{beamercolorbox}[shadow=true, rounded=true]{postit}	  
+    Reusability.  
+  \end{beamercolorbox}
+
+  \begin{beamercolorbox}[shadow=true, rounded=true]{postit}	  
+    Convention over configuration.  
+  \end{beamercolorbox}
+  
+  \begin{beamercolorbox}[shadow=true, rounded=true]{postit}	  
+    Simplicity.  
+  \end{beamercolorbox}
+
+}
+
+\section*{Outline}
+\frame{\tableofcontents}
+
+\end{document}
+
+% https://github.com/harrah/xsbt/wiki/Plugins-Best-Practices
+
+% http://tihlde.org/~eivindw/latex-listings-for-scala/
+
+% https://github.com/harrah/xsbt/wiki/Plugins

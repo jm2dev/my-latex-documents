@@ -1,0 +1,92 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{listings}
+\setbeamerfont{structure}{family=\rmfamily,shape=\itshape} 
+
+\usecolortheme{seahorse}
+\usecolortheme{rose}
+\setbeamercolor{title}{fg=red!80!black,bg=red!20!white}
+\usetheme{Pittsburgh}
+
+\title{SBT plugins}
+\subtitle{an easy way to develop scala applications}
+\author{José Miguel Martínez Carrasco \\ \texttt{jose.miguel@springer.com}}
+\institute[Springer]{Springer}
+\date{\today}
+
+\begin{document}
+
+%título
+\begin{frame}[plain] 
+  \titlepage
+\end{frame}
+
+%tabla de contenidos
+\begin{frame}
+  \frametitle{Outline}
+  \tableofcontents
+\end{frame}
+
+%introducción
+\begin{frame}{Introduction}
+
+  \section{Motivation}
+
+  Simple Extensibility.
+  	
+  Plugins provide a means of injecting and augmenting settings and commands. Since plugins are just Scala code, you can package and share plugins between projects.
+
+\end{frame}
+
+\begin{frame}{Create plugin}
+
+  \begin{itemize}
+
+    \item set up project
+
+    \item implement plugin
+
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Set up}
+
+  \lstset{language=ksh,basicstyle=\ttfamily}
+  \begin{lstlisting}[frame=none]
+    mkdir my-sbt-plugin
+
+    cd my-sbt-plugin
+
+    touch build.sbt
+
+    mkdir project
+
+    touch project/build.properties
+
+    touch project/plugins.sbt
+
+    mkdir -p src/main/scala
+  \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}{fragile}
+  \frametitle{build.properties}
+
+    \lstset{language=ksh,basicstyle=\ttfamily}
+    \begin{lstlisting}[frame=none]
+      sbt.version=0.11.2
+    \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}{Useful plugins}
+
+\end{frame}
+
+\begin{frame}
+\end{frame}
+
+\end{document}
