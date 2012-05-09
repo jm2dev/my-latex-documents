@@ -5,3 +5,6 @@
 *.snm
 *.toc
 *.vrb
+*.gz
+*.pdf
+
