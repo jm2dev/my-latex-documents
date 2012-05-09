@@ -63,13 +63,27 @@
 
 \subsection{Motivation}
 \frame{
-  Simple Extensibility.
+  \frametitle{What is a plugin?}
 
   \begin{beamercolorbox}[shadow=true, rounded=true]{postit}	  
+A plugin extends the build definition, most commonly by adding new settings. The new settings could be new tasks.
+  \end{beamercolorbox}
+  
+  \begin{beamercolorbox}[shadow=true, rounded=true]{postit} 
     Plugins provide a means of injecting and augmenting settings and commands. Since plugins are just Scala code, you can package and share plugins between projects.  
   \end{beamercolorbox}
+}
 
-  Refactor your build chain.
+\frame{
+  \frametitle{What I like}
+
+  \begin{beamercolorbox}[shadow=true, rounded=true]{postit}	  
+    Simplify your build chain with code that can be used in different projects.	
+  \end{beamercolorbox}
+  
+  \begin{beamercolorbox}[shadow=true, rounded=true]{postit} 
+    Get the resources to build plugins that meet your needs and share them. 
+  \end{beamercolorbox}
 }
 
 \section{Create a plugin}
@@ -187,6 +201,10 @@
   \begin{beamercolorbox}[shadow=true, rounded=true]{postit}
     Generates a big jar.
   \end{beamercolorbox}
+
+  \begin{beamercolorbox}[shadow=true, rounded=true]{postit}
+    Web application with servlet container embedded.
+  \end{beamercolorbox}
 }
 
 \begin{frame}[fragile]
@@ -232,10 +250,73 @@
   \frametitle{implicitly}
   
   \begin{beamercolorbox}[shadow=true, rounded=true]{postit}
-    codigo de implicitly
+    The SBT Organization is available for use by any SBT plugin.
+  \end{beamercolorbox}
+  
+  \begin{beamercolorbox}[shadow=true, rounded=true]{postit}
+    Developers who contribute their plugins into the community organization will still retain control over their repository and its access. The Goal of the SBT organization is to organize SBT software into one central location.
+  \end{beamercolorbox}
+  
+  \begin{beamercolorbox}[shadow=true, rounded=true]{postit}
+   A side benefit to using the SBT organization for projects is that you can use gh-pages to host websites in the http://scala-sbt.org domain.
   \end{beamercolorbox}
 }
 
+\frame{
+  \frametitle{Community Ivy repository}
+
+  \begin{beamercolorbox}[shadow=true, rounded=true]{postit}
+    Typesafe, Inc. has provided a freely available Ivy Repository for SBT projects to make use of.
+  \end{beamercolorbox}
+
+  \begin{beamercolorbox}[shadow=true, rounded=true]{postit}
+    If you would like to publish your project to this Ivy repository, first contact Joshua.Suereth@typesafe.com and request privileges (we have to verify code ownership, rights to publish, etc.). After which, you can deploy your plugins using the following configuration:
+  \end{beamercolorbox}
+
+  \begin{beamercolorbox}[shadow=true, rounded=true]{postit}
+    You'll also need to add your credentials somewhere. I use a ~/.sbt/sbtpluginpublish.sbt file
+  \end{beamercolorbox}
+}
+
+\begin{frame}[fragile]
+  \begin{lstlisting}[title={build.sbt}]
+publishTo := Some(Resolver.url("sbt-plugin-releases", 
+  new URL("http://scalasbt.artifactoryonline.com/scalasbt/
+  sbt-plugin-releases/"))(Resolver.ivyStylePatterns))
+
+publishMavenStyle := false
+  \end{lstlisting}
+
+  \begin{lstlisting}[title={sbtpluginpublish.sbt}]
+credentials += Credentials("Artifactory Realm", "scalasbt.artifactoryonline.com", "jsuereth", "@my encrypted password@")
+  \end{lstlisting}
+
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]
+  \begin{lstlisting}[title={plugins.sbt}]
+    addSbtPlugin("me.lessis" % "ls-sbt" % "0.1.1")
+
+    resolvers ++= Seq(
+      "less is" at "http://repo.lessis.me",
+      "coda" at "http://repo.codahale.com"
+    )
+  \end{lstlisting}
+  
+  \begin{lstlisting}[title={plugins.sbt}]
+    seq(lsSettings: _*)
+  \end{lstlisting}
+  
+  \begin{lstlisting}[title={usage}]
+    curl -X POST http://ls.implicit.ly/api/1/libraries \
+  -d 'user=your-gh-user \ 
+  &repo=your-gh-repo \
+  &version=version-to-sync'
+  \end{lstlisting}
+\end{frame}
 \section{Conclusions}
 \frame{
   \begin{beamercolorbox}[shadow=true, rounded=true]{postit}	  
@@ -252,13 +333,18 @@
 
 }
 
+\section{References}
+\frame{
+  \begin{itemize}
+   \item https://github.com/harrah/xsbt/wiki/Plugins-Best-Practices
+   \item http://tihlde.org/~eivindw/latex-listings-for-scala/
+    \item https://github.com/harrah/xsbt/wiki/Plugins    
+  \end{itemize}
+}
+
 \section*{Outline}
 \frame{\tableofcontents}
 
 \end{document}
 
-% https://github.com/harrah/xsbt/wiki/Plugins-Best-Practices
 
-% http://tihlde.org/~eivindw/latex-listings-for-scala/
-
-% https://github.com/harrah/xsbt/wiki/Plugins
