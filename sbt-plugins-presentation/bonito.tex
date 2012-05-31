@@ -63,6 +63,23 @@
 
 \subsection{Motivation}
 \frame{
+  \frametitle{What is SBT?}
+
+  \begin{beamercolorbox}[shadow=true, rounded=true]{postit}	  
+sbt is a build tool for Scala and Java projects that aims to do the basics well.
+  \end{beamercolorbox}
+}
+
+\begin{frame}[fragile]
+  \begin{lstlisting}[title={sbt definition files}]
+build.sbt
+project/Build.scala
+  \end{lstlisting}
+\end{frame}
+
+
+
+\frame{
   \frametitle{What is a plugin?}
 
   \begin{beamercolorbox}[shadow=true, rounded=true]{postit}	  
@@ -72,6 +89,28 @@ A plugin extends the build definition, most commonly by adding new settings. The
   \begin{beamercolorbox}[shadow=true, rounded=true]{postit} 
     Plugins provide a means of injecting and augmenting settings and commands. Since plugins are just Scala code, you can package and share plugins between projects.  
   \end{beamercolorbox}
+}
+
+\frame{
+  \frametitle{Recommendations}
+
+A plugin developer should strive for consistency and ease of use. Specifically:
+
+  \begin{itemize}
+    \item Plugins should play well with other plugins. Avoiding namespace clashes (in both SBT and Scala) is paramount.
+    \item Plugins should follow consistent conventions. The experiences of an SBT user should be consistent, no matter what plugins are pulled in.
+  \end{itemize}
+}
+
+\frame{
+  \begin{itemize}
+    \item Avoid overriding settings
+    \item Reuse existing keys
+    \item Avoid namespaces clashes
+    \item Own configuration if plugins defines new concepts
+    \item Provide raw settings and configured settings
+    \item Scope settings in main task
+  \end{itemize}
 }
 
 \frame{
