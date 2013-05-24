@@ -1,0 +1,26 @@
+#+TITLE: Scala projects with sbt presentation
+#+AUTHOR: José Miguel
+
+* Abstract
+
+LaTeX2e beamer presetation about sbt build tool.
+
+* Motivation
+
+Starting with a new software language can be a frustrating experience
+when you feel lost among the new tools and possibilities that appear
+in front of you.
+
+In order to mitigate that frustation I decided to prepare a short
+presentation about my own experiences and want to share that new
+knowledge with others.
+
+Having a java background and being used to maven, I really missed some
+features I gave for granted with sbt. Giter8 has filled the gap around
+maven archetypes I used to invoque a lot when I built any java project
+from scratch.
+
+Additionally, as I like working on different unix flavours, I found
+annoying the operating system package management dependency. Storing
+all my applications in my home folder, although it can deal to
+controversy, has simplified my workflow.
