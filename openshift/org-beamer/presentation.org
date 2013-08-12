@@ -1,0 +1,115 @@
+#+TITLE:     Fixing the pain with OpenShift
+#+AUTHOR:    Jose Miguel Martinez Carrasco
+#+EMAIL:     jose.miguel@springer.com
+#+INSTITUTE: Springer - London
+#+DATE:      2013-08-11 Sun
+#+DESCRIPTION:
+#+KEYWORDS: openshift, PaaS, Agile
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME: 
+#+XSLT:
+#+startup: beamer
+#+LaTeX_CLASS: beamer
+#+LaTeX_CLASS_OPTIONS: [bigger]
+#+BEAMER_FRAME_LEVEL: 2
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+#+latex_header: \mode<beamer>{\usetheme{Pittsburgh}\setbeamercolor{postit}{fg=black,bg=white!80!black}\usecolortheme{fly}}
+
+* Context
+** Where do we want to be?
+
+We want to deploy our applications as soon as we commit our code to
+Bitbucket.
+
+We want developers to focus on the application, which provides value
+to the company, and we do not them to worry about the underlying platform.
+
+We want to reduce waste: 
+
+- innecessary steps
+- innecessary delays
+
+that provide no extra business value. 
+
+** Where are we now?
+
+Now when we need a new environment we need to:
+
+- request servers
+- provision and set up them
+- configure applications
+- set up a pipeline 
+- set up load balancing
+- request for DNS entries
+- ...
+
+** And if we need a new application
+
+then we need to:
+
+- decide which servers will run it
+- set up every environment (DEV, QA, ...)
+- modify pipelines
+- update load balancer
+- request for DNS entries
+- ...
+
+* Solution: OpenShift
+** What is it?
+
+OpenShift is a cloud computing platform as a service product from Red Hat. A version for private cloud is named OpenShift Enterprise.
+
+The software that runs the service is open-sourced under the name
+OpenShift Origin, and is available on GitHub. 
+
+Developers can use Git to deploy web applications in different languages on the platform.
+
+Uniquely, OpenShift also supports binary programs that are web
+applications, so long as they can run on Red Hat Enterprise Linux. 
+This allows the use of arbitrary languages and frameworks. OpenShift takes care of maintaining the services underlying the application and scaling the application as needed.
+
+** Simplify the lifecycle
+
+Getting a Java app with a MySQL backend deployed onto OpenShift is as
+easy as executing two commands:
+
+#+begin_src bash
+rhc app create MyApp jbossews
+rhc cartridge add mysql-5.1 -a MyApp
+#+end_src
+
+These two commands create your "server" and install and configure Tomcat (via JBoss EWS), MySQL, a git repository on the server, and a simple web application. You can now visit your application on the web at:
+
+http://MyApp-MyDomain.rhcloud.com/
+
+** Simplify the lifecycle (II)
+
+Now we do not need to worry about servers, DNS entries, load
+balancing, high availability, etc.
+
+Everything is provided by the platform infrastructure, that is also
+the reason Openshift is PaaS (Platform as a service).
+
+It supports the most popular technologies like Java, ruby, nodejs,
+etc; and allow us to extend it via cartridges to support additional applications.
+
+** What does it provide?
+ 
+- Rapid deployment
+- Early feedback
+- Focus on the app not the infrastructure
+- Autoscaling
+- DIY: cartridges
+
+
+* References
+** Links
+
+- [[http://www.slideshare.net/fallenpegasus/openshift-openstack-fedora-awesome][Openshift and openstack]].
+- [[ttp://www.slideshare.net/jdewinne/cloud-development-using-play-scala-and-openshift][Play Scala and Openshift]].
