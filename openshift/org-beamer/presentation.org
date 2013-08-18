@@ -1,5 +1,5 @@
-#+TITLE:     Fixing the pain with OpenShift
-#+AUTHOR:    Jose Miguel Martinez Carrasco
+#+TITLE:     PaaS :: OpenShift
+#+AUTHOR:    Jose Miguel Martinez Carrasco, Héctor Rivas
 #+EMAIL:     jose.miguel@springer.com
 #+INSTITUTE: Springer - London
 #+DATE:      2013-08-11 Sun
@@ -23,98 +23,93 @@
 
 * Context
 
+** SaaS
 
-
-
-** Software as a Service (SaaS)
-
-...is a software delivery model[3] in which software and associated data are centrally hosted on the cloud. 
+is a software delivery model in which software and associated data are centrally hosted on the cloud. 
 
 Oriented to the end user, he won't have to care about the software and the data, and will have universal access.
 
-Examples: Gmail, Github, prezi, SpringerLink
+*** Examples
 
+Gmail, Github, prezi, SpringerLink
 
+** IaaS
 
-
-** Infrastructure as a Service (IaaS)
-
-...offers virtual resources for machines, disk, network,load balancers, ussually on-demand from pools in data centers.
+offers virtual resources for machines, disk, network, load balancers, ussually on-demand from pools in data centers.
 
 Oriented to ops, that won't care about physical maintenance, can provision on-demand, etc.
 
-Examples: Amazon, rackspace, OpenStack
+*** Examples
 
+Amazon, rackspace, OpenStack
 
+** PaaS
 
-** Platform as a Service (PaaS)
+provides a computing platform and a solution stack as a service (java, php, etc), taking care of autodeployment, scaling, etc.
 
-... provides a computing platform and a solution stack as a service (java, php, etc), taking care of autodeployment, scaling, etc.
+Oriented to the developers, they won't care how the underlying servers and systems (meanwhile they follow some rules).
 
-Oriented to the developers, they won't care how the underlying servers and systems (meanwhile they follow some rules)
+*** Examples
 
-Examples: Heroku, Google App Engine, Openshift
-
+Heroku, Google App Engine, Openshift
 
 ** What can PaaS offer?
 
-With PaaS one:
+- deploy applications as easy as pushing code.
 
-- can deploy your applications just with a command, as easy as pushing code.
+- developers will focus on the application instead of on the underlying platform.
 
-- ensure that the developers will focus on the application instead of on the underlying platform.
-
-- can create new environments as needed, without any extra overhead.
+- create new environments as needed, without any extra overhead.
 
 - scale on demand and get the best from our resources.
 
 - have isolated and homogenous platform
 
+** What are the benefits? 
 
-** What are the benefits of this? 
+*** People working on the right tasks
 
-- The right people will work on the right task:
-  + developers on delivering end user features
-  + systems engineers on delivering a platform
+- developers on delivering end user features
+- systems engineers on delivering a platform
 
-- Create new software and environments fast and easily
-
-- Reduce maintenance overhead and simplify tasks.
-
-- Increase security and contention problems.
-
+*** Flexibility
+- easy environments creation
+- fast services deployment
+- maintenance overhead reduction
+- tasks simplification
 
 ** I buy it, I want it now!!!
 
 OK, but this does not come for free.
 
-First you need a PaaS solution. 
+- we need a PaaS solution
+- we need to learn how to use it
+- we need to adapt our software
+- we need to change our delivery process
 
-Second you have to learn how to use it.
+** Use a commercial hosted solution
 
-Of course you got to adapt your software.
+*** Examples
 
-And finally, change your delivery process.
+Google App Engine, Heroku, Open Shift online, etc
 
+*** Disadvantages
 
-** Use a comertial hosted solution
-
-Examples: Google App Engine, Heroku, Open Shift online... 
-
-- But are expensive.
+- expensive
 - in their datacenters 
 - they decide the technology stack
-- sometime closed solutions
+- sometimes closed solutions
 - their own stric policies and rules
-
 
 ** Use your own PaaS solution
 
-Examples: Openshift, CloudFoundry, Flynn... or your own implementation.
+*** Examples
+
+Openshift, CloudFoundry, Flynn, etc or your own implementation.
 
 - You need to setup, install and maintain the platform
 - You need to custumize it if need
-
+  
 ** Learning curve and adapt your software
 
 OK, soon you will get the benefits, but you 
@@ -122,8 +117,6 @@ OK, soon you will get the benefits, but you
 - have to learn how to use the platforms, the tools, etc.
 
 - adapt the applications to a set of conventions (configuration, path, etc)
-
-
 
 ** Casper: Where are we now?
 
@@ -136,12 +129,7 @@ to setup a new service, or deploy a new environment:
 - set up load balancing
 - request for DNS entries
 - map the application  to servers
-- etc...
-- etc...
-- etc...
-- etc...
-
-
+- etc
 
 * Solution: OpenShift
 ** What is it?
