@@ -22,24 +22,112 @@
 #+latex_header: \mode<beamer>{\usetheme{Pittsburgh}\setbeamercolor{postit}{fg=black,bg=white!80!black}\usecolortheme{fly}}
 
 * Context
-** Where do we want to be?
 
-We want to deploy our applications as soon as we commit our code to
-Bitbucket.
 
-We want developers to focus on the application, which provides value
-to the company, and we do not them to worry about the underlying platform.
 
-We want to reduce waste: 
 
-- innecessary steps
-- innecessary delays
+** Software as a Service (SaaS)
 
-that provide no extra business value. 
+...is a software delivery model[3] in which software and associated data are centrally hosted on the cloud. 
 
-** Where are we now?
+Oriented to the end user, he won't have to care about the software and the data, and will have universal access.
 
-Now when we need a new environment we need to:
+Examples: Gmail, Github, prezi, SpringerLink
+
+
+
+
+** Infrastructure as a Service (IaaS)
+
+...offers virtual resources for machines, disk, network,load balancers, ussually on-demand from pools in data centers.
+
+Oriented to ops, that won't care about physical maintenance, can provision on-demand, etc.
+
+Examples: Amazon, rackspace, OpenStack
+
+
+
+** Platform as a Service (PaaS)
+
+... provides a computing platform and a solution stack as a service (java, php, etc), taking care of autodeployment, scaling, etc.
+
+Oriented to the developers, they won't care how the underlying servers and systems (meanwhile they follow some rules)
+
+Examples: Heroku, Google App Engine, Openshift
+
+
+** What can PaaS offer?
+
+With PaaS one:
+
+- can deploy your applications just with a command, as easy as pushing code.
+
+- ensure that the developers will focus on the application instead of on the underlying platform.
+
+- can create new environments as needed, without any extra overhead.
+
+- scale on demand and get the best from our resources.
+
+- have isolated and homogenous platform
+
+
+** What are the benefits of this? 
+
+- The right people will work on the right task:
+  + developers on delivering end user features
+  + systems engineers on delivering a platform
+
+- Create new software and environments fast and easily
+
+- Reduce maintenance overhead and simplify tasks.
+
+- Increase security and contention problems.
+
+
+** I buy it, I want it now!!!
+
+OK, but this does not come for free.
+
+First you need a PaaS solution. 
+
+Second you have to learn how to use it.
+
+Of course you got to adapt your software.
+
+And finally, change your delivery process.
+
+
+** Use a comertial hosted solution
+
+Examples: Google App Engine, Heroku, Open Shift online... 
+
+- But are expensive.
+- in their datacenters 
+- they decide the technology stack
+- sometime closed solutions
+- their own stric policies and rules
+
+
+** Use your own PaaS solution
+
+Examples: Openshift, CloudFoundry, Flynn... or your own implementation.
+
+- You need to setup, install and maintain the platform
+- You need to custumize it if need
+
+** Learning curve and adapt your software
+
+OK, soon you will get the benefits, but you 
+
+- have to learn how to use the platforms, the tools, etc.
+
+- adapt the applications to a set of conventions (configuration, path, etc)
+
+
+
+** Casper: Where are we now?
+
+to setup a new service, or deploy a new environment: 
 
 - request servers
 - provision and set up them
@@ -47,18 +135,13 @@ Now when we need a new environment we need to:
 - set up a pipeline 
 - set up load balancing
 - request for DNS entries
-- ...
+- map the application  to servers
+- etc...
+- etc...
+- etc...
+- etc...
 
-** And if we need a new application
 
-then we need to:
-
-- decide which servers will run it
-- set up every environment (DEV, QA, ...)
-- modify pipelines
-- update load balancer
-- request for DNS entries
-- ...
 
 * Solution: OpenShift
 ** What is it?
