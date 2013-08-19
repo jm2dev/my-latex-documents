@@ -82,54 +82,12 @@ Heroku, Google App Engine, Openshift
 
 OK, but this does not come for free.
 
-- we need a PaaS solution
+- we need a PaaS solution (hosted or private)
 - we need to learn how to use it
 - we need to adapt our software
 - we need to change our delivery process
 
-** Use a commercial hosted solution
-
-*** Examples
-
-Google App Engine, Heroku, Open Shift online, etc
-
-*** Disadvantages
-
-- expensive
-- in their datacenters 
-- they decide the technology stack
-- sometimes closed solutions
-- their own stric policies and rules
-
-** Use your own PaaS solution
-
-*** Examples
-
-Openshift, CloudFoundry, Flynn, etc or your own implementation.
-
-- You need to setup, install and maintain the platform
-- You need to custumize it if need
-  
-** Learning curve and adapt your software
-
-OK, soon you will get the benefits, but you 
-
-- have to learn how to use the platforms, the tools, etc.
-
-- adapt the applications to a set of conventions (configuration, path, etc)
-
-** Casper: Where are we now?
-
-to setup a new service, or deploy a new environment: 
-
-- request servers
-- provision and set up them
-- configure applications
-- set up a pipeline 
-- set up load balancing
-- request for DNS entries
-- map the application  to servers
-- etc
+* How do it work?
 
 * Solution: OpenShift
 ** What is it?
